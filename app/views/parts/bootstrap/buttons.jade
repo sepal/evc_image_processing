@@ -1,0 +1,21 @@
+mixin button(label, style)
+  -var classes = (style ? style : "btn-default");
+  button.btn(type="button", class=classes) #{label}
+
+mixin button_primary(label)
+  +button_primary(label, ".btn-primary")
+
+
+mixin button_dropdown(label, items, style)
+  -var classes = (style ? style : "btn-default");
+  button.btn(type="button", class=classes data-toggle="dropdown") #{label}
+  ul.dropdown-menu
+    each item in items
+      -var classes = (item.divider ? "divider" : "");
+      -var mnu_classes = (item.classes || "");
+      -var url = (item.url || "");
+      -var angClick = (item.angClick || "");
+      li(classes=classes)
+        -if (!item.divider) {
+          a(href=url, class=mnu_classes, ng-click=angClick) #{item.label}
+        -}

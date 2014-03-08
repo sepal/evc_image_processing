@@ -1,0 +1,28 @@
+// Main html template
+
+doctype html
+html()
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="")
+    meta(name="author", content="")
+
+    title= title
+    link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/css/main.css')
+    each js_file in js_files
+      -if (js_file.location == 'header') {
+        script(src=js_file.url)
+      -}
+  body
+    include navbar
+    div.page
+      block content
+
+    each js_file in js_files
+      -if (!js_file.location || js_file.location == 'footer') {
+        script(src=js_file.url)
+      -}

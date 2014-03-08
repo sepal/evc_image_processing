@@ -1,0 +1,10 @@
+mixin navbar_item(name, href, active)
+  -var classes = (active==1 ? 'active' : '');
+  li(class=classes)
+    a(class=classes, href=href)= name
+
+
+
+each item, name in menu.items
+  -var active = (menu.active == name);
+  +navbar_item(item['label'], item['url'], active)

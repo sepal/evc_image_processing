@@ -1,0 +1,5 @@
+server:
+  port: 8888
+
+database:
+  path: localhost:27017/app_name

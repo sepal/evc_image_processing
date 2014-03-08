@@ -1,0 +1,21 @@
+{
+  "name": "ImageProcessing",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "3.4.7",
+    "jade": "*",
+    "less-middleware": "*",
+    "mongoose": "*",
+    "js-yaml": "*"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-nodemon": "*",
+    "grunt-concurrent": "*"
+  }
+}
