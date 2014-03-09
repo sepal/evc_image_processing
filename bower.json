@@ -5,7 +5,7 @@
     "angular" : "*",
     "angular-route" : "*",
     "angular-resource" : "*",
-    "bootstrap" : "~3.0.3",
+    "bootstrap" : "*",
     "caman" : "4.1.2",
     "font-awesome" : "4.0.3"
   }

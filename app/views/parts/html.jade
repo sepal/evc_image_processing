@@ -11,6 +11,8 @@ html()
 
     title= title
     link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/lib/bootstrap-switch/build/css/bootstrap3/bootstrap-switch.min.css')
+    link(rel='stylesheet', href='/lib/seiyria-bootstrap-slider/css/bootstrap-slider.css')
     link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href='/css/main.css')
     each js_file in js_files
@@ -19,7 +21,7 @@ html()
       -}
   body
     include navbar
-    div.page
+    div.page.container
       block content
 
     each js_file in js_files

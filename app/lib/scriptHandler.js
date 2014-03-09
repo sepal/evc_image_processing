@@ -17,13 +17,18 @@ var tools = require("./tools");
 var default_js_files = [
   {'url' : "/lib/jquery/dist/jquery.min.js", 'location' : 'header'},
   {'url' : "/lib/bootstrap/dist/js/bootstrap.min.js"},
+  {'url' : "/lib/bootstrap-switch/build/js/bootstrap-switch.js"},
+  {'url' : "/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"},
   {'url' : "/lib/angular/angular.js", 'location' : 'header'},
   {'url' : "/lib/angular-route/angular-route.js", 'location' : 'header'},
   {'url' : "/lib/angular-resource/angular-resource.js", 'location' : 'header'},
+  {'url' : "/lib/caman/dist/caman.full.js", 'location' : 'header'},
   {'url' : "/js/core.js", 'location' : 'header'},
   {'url' : "/js/app.js", 'location' : 'header'},
   {'url' : "/js/controllers.js", 'location' : 'header'},
-  {'url' : "/js/services.js", 'location' : 'header'}
+  {'url' : "/js/services.js", 'location' : 'header'},
+  {'url' : "/js/filters.js", 'location' : 'header'},
+  {'url' : "/js/imageProcessor.js", 'location' : 'footer'}
 ];
 
 /**

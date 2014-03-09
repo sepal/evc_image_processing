@@ -13,7 +13,7 @@ var scriptHandler = require('../lib/scriptHandler');
  */
 exports.index = function (req, res) {
   var params = {
-    title: '',
+    title: 'ImageProcessing',
     menu: mainNavigation.getItems('home'),
     js_files: scriptHandler.getFiles('/')
   };
