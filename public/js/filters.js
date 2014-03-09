@@ -11,12 +11,12 @@
     if (isNaN(radius) || radius < 1) {
       return;
     }
-    radius |= 1;
-    gradient_width |= 100;
+    radius = radius || 1;
+    gradient_width = gradient_width || 100;
     pixels = this.pixelData;
     width = this.dimensions.width;
     height = this.dimensions.height;
-    gradient_center |= (height / 2) + 30;
+    gradient_center = gradient_center || (height / 2) + 30;
     gradient_half_width = gradient_width / 2;
     kernel_size = radius * 2 + 1;
     divisor = kernel_size * kernel_size;
@@ -38,7 +38,13 @@
           for (x_k = _n = 0; 0 <= kernel_size ? _n < kernel_size : _n > kernel_size; x_k = 0 <= kernel_size ? ++_n : --_n) {
             y_div = y_k - radius;
             x_div = x_k - radius;
-            j = (y - y_div) * width * 4 + (x - x_div) * 4;
+            if ((y + y_div) < 0 || (y + y_div) >= (height - 1)) {
+              y_div = 0;
+            }
+            if ((x + x_div) < 0 || (x + x_div) >= (width - 1)) {
+              x_div = 0;
+            }
+            j = (y + y_div) * width * 4 + (x + x_div) * 4;
             new_value[0] += pixels[j] * blur_kernel[y_k][x_k];
             new_value[1] += pixels[j + 1] * blur_kernel[y_k][x_k];
             new_value[2] += pixels[j + 2] * blur_kernel[y_k][x_k];

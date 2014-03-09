@@ -6,9 +6,9 @@ lerp = (v0, v1, t) ->
 Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
   # only do something if the radius >= 1
   return if isNaN(radius) || radius < 1
-  radius |= 1
 
-  gradient_width |= 100;
+  radius = radius or 1
+  gradient_width = gradient_width or 100;
 
   # Get the pixels and the dimensions of the image.
   pixels = @pixelData
@@ -16,7 +16,7 @@ Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
   height = @dimensions.height
 
 
-  gradient_center |= (height / 2) + 30
+  gradient_center = gradient_center or (height / 2) + 30
   gradient_half_width = gradient_width / 2
 
   # Calculate the array size for the kernel.
@@ -47,11 +47,16 @@ Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
       # Calculate the convulution for each pixel value.
       for y_k in [0...kernel_size]
         for x_k in [0...kernel_size]
+
           # Calculate the position of the neighbour pixel.
-          # Currently ignore the edges.
           y_div = y_k - radius
           x_div = x_k - radius
-          j = (y - y_div) * width * 4 + (x - x_div) * 4
+
+          # Handle the edges by selecting the first/last index if out of border.
+          y_div = 0 if (y + y_div) < 0 or (y + y_div) >= (height - 1)
+          x_div = 0 if (x + x_div) < 0 or (x + x_div) >= (width - 1)
+
+          j = (y + y_div) * width * 4 + (x + x_div) * 4
 
           # Add the multiplication of the neighbours pixel value with the value
           # of the kernel and add it as result.
@@ -67,6 +72,7 @@ Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
       # Calculate the upper half gradient
       if (y > gradient_center - gradient_half_width && y <= gradient_center)
         t = ((y+gradient_half_width)-gradient_center) / gradient_half_width
+
         new_value[0] = lerp(new_value[0], pixels[i], t);
         new_value[1] = lerp(new_value[1], pixels[i + 1], t);
         new_value[2] = lerp(new_value[2], pixels[i + 2], t);
