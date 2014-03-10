@@ -15,5 +15,7 @@ var staticSiteController = require("./controllers/static");
 module.exports = function (app) {
 // Routes to static pages.
   app.get('/', staticSiteController.index);
+  app.get('/edit', staticSiteController.edit);
+  app.post('/upload', staticSiteController.upload)
 
 }

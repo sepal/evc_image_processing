@@ -4,26 +4,6 @@ block content
   div
     div
       h1 Tilt Shift
-    div.effect-controls.clearfix.well
-      div.col-md-5
-        | Blur radius:
-        input(type="text", class="blur-radius", value="", data-slider-min="1", data-slider-max="5", data-slider-step="1", data-slider-value="1", data-slider-selection="after")
-      div.btn-group
-        button(type="submit", class="btn btn-default tilt-shift-button") Add effect
-        button(type="submit", class="btn btn-default revert-button") Revert
-        button(type="submit", class="btn btn-default save-button") Save
-    div.image-container
-      div.tilt-overlay
-        div.tilt-gradient-upper
-          div.tilt-gradient-size
-            div.handler
-          div.tilt-gradient-position
-        div.tilt-center
-          div.inner-background
-            div.inner-border
-              div.inner-circle
-        div.tilt-gradient-lower
-          div.tilt-gradient-position
-          div.tilt-gradient-size
-            div.handler
-      img.image(src="/images/test_img.jpg")
+    form(method='post', action='/upload', enctype='multipart/form-data')
+      input(type='file', name='image')
+      input(type='submit')
