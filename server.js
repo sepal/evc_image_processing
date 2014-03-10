@@ -8,25 +8,12 @@
 var express = require("express"),
   path = require('path'),
   fs = require('fs'),
-  mongoose = require('mongoose'),
   config = require("./app/lib/config");
 
 
 var serverConf = config.load("./config/config.yml");
 
 var app = module.exports = express();
-
-// Connect to mongodb.
-
-var authentication = "";
-
-if (serverConf.database.user && serverConf.database.password) {
-  authentication = serverConf.database.user + ':' + serverConf.database.password + '@';
-}
-
-var db_path = 'mongodb://' + authentication + serverConf.database.path;
-console.log("Connecting to mongo db server: %s", db_path);
-mongoose.connect(db_path);
 
 // Check node_env, if not set default to development
 process.env.NODE_ENV = (process.env.NODE_ENV || serverConf.server.env || "development");
