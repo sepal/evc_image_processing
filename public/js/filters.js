@@ -13,7 +13,7 @@
     return this;
   };
 
-  Caman.Plugin.register("myTiltShift", function(radius, focus_center, gradient_height, gradient_distance) {
+  Caman.Plugin.register("myTiltShift", function(radius, focus_center, gradient_height_upper, gradient_height_lower, gradient_distance_upper, gradient_distance_lower) {
     var blur_kernel, divisor, height, i, j, kernel_size, lower_gradient, new_value, pixels, t, upper_gradient, width, x, x_div, x_k, y, y_div, y_k, _i, _j, _k, _l, _m, _n;
     if (isNaN(radius) || radius < 1) {
       return;
@@ -21,11 +21,13 @@
     pixels = this.pixelData;
     width = this.dimensions.width;
     height = this.dimensions.height;
-    focus_center = focus_center || (height / 2) + 30;
-    gradient_height = gradient_height | 50;
-    gradient_distance = gradient_distance || 20;
-    upper_gradient = new Gradient(focus_center - gradient_height - gradient_distance, focus_center - gradient_distance);
-    lower_gradient = new Gradient(focus_center + gradient_distance, focus_center + gradient_distance + gradient_height);
+    focus_center = focus_center || (height / 2);
+    gradient_height_upper = gradient_height_upper | 50;
+    gradient_height_lower = gradient_height_lower | 50;
+    gradient_distance_upper = gradient_distance_upper || 20;
+    gradient_distance_lower = gradient_distance_lower || 20;
+    upper_gradient = new Gradient(focus_center - gradient_height_upper - gradient_distance_upper, focus_center - gradient_distance_upper);
+    lower_gradient = new Gradient(focus_center + gradient_distance_lower, focus_center + gradient_distance_lower + gradient_height_lower);
     kernel_size = radius * 2 + 1;
     divisor = kernel_size * kernel_size;
     blur_kernel = new Array();
@@ -84,8 +86,8 @@
     return this;
   });
 
-  Caman.Filter.register("myTiltShift", function(radius, focus_center, gradient_height, gradient_distance) {
-    return this.processPlugin("myTiltShift", [radius, focus_center, gradient_height, gradient_distance]);
+  Caman.Filter.register("myTiltShift", function(radius, focus_center, gradient_height_upper, gradient_height_lower, gradient_distance_upper, gradient_distance_lower) {
+    return this.processPlugin("myTiltShift", [radius, focus_center, gradient_height_upper, gradient_height_lower, gradient_distance_upper, gradient_distance_lower]);
   });
 
 }).call(this);

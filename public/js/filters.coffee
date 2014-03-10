@@ -10,7 +10,7 @@ Gradient = (from, to) ->
   @
 
 # Register a new blur plugin
-Caman.Plugin.register "myTiltShift", (radius, focus_center, gradient_height, gradient_distance) ->
+Caman.Plugin.register "myTiltShift", (radius, focus_center, gradient_height_upper, gradient_height_lower, gradient_distance_upper, gradient_distance_lower) ->
   # only do something if the radius >= 1
   return if isNaN(radius) || radius < 1
 
@@ -20,13 +20,15 @@ Caman.Plugin.register "myTiltShift", (radius, focus_center, gradient_height, gra
   height = @dimensions.height
 
 
-  focus_center = focus_center or (height / 2) + 30
-  gradient_height = gradient_height | 50
-  gradient_distance = gradient_distance or 20
+  focus_center = focus_center or (height / 2)
+  gradient_height_upper = gradient_height_upper | 50
+  gradient_height_lower = gradient_height_lower | 50
+  gradient_distance_upper = gradient_distance_upper or 20
+  gradient_distance_lower = gradient_distance_lower or 20
 
   # Calculate gradient maps
-  upper_gradient = new Gradient(focus_center - gradient_height - gradient_distance, focus_center - gradient_distance)
-  lower_gradient = new Gradient(focus_center+ gradient_distance, focus_center + gradient_distance + gradient_height )
+  upper_gradient = new Gradient(focus_center - gradient_height_upper - gradient_distance_upper, focus_center - gradient_distance_upper)
+  lower_gradient = new Gradient(focus_center + gradient_distance_lower, focus_center + gradient_distance_lower + gradient_height_lower )
 
   # Calculate the array size for the kernel.
   kernel_size = radius * 2 + 1
@@ -108,5 +110,5 @@ Caman.Plugin.register "myTiltShift", (radius, focus_center, gradient_height, gra
 
   @
 
-Caman.Filter.register "myTiltShift", (radius, focus_center, gradient_height, gradient_distance) ->
-  @processPlugin "myTiltShift", [radius, focus_center, gradient_height, gradient_distance]
+Caman.Filter.register "myTiltShift", (radius, focus_center, gradient_height_upper, gradient_height_lower, gradient_distance_upper, gradient_distance_lower) ->
+  @processPlugin "myTiltShift", [radius, focus_center, gradient_height_upper, gradient_height_lower, gradient_distance_upper, gradient_distance_lower]
