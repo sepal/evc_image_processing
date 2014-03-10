@@ -16,7 +16,7 @@ $('.tilt-shift-button').click ->
   img = $('.image').get(0);
   radius = $('.blur-radius').slider('getValue')
   gradient_center_top = ($(".tilt-center").position().top+25) / canvas_height * img_height
-  console.log(gradient_center_top);
+
   Caman img, ->
     @myBlur(radius, gradient_center_top)
     @render()
