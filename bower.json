@@ -2,11 +2,10 @@
   "name" : "music_box",
   "private" : true,
   "dependencies": {
-    "angular" : "*",
-    "angular-route" : "*",
-    "angular-resource" : "*",
     "bootstrap" : "*",
     "caman" : "4.1.2",
-    "font-awesome" : "4.0.3"
+    "jasny-bootstrap" : "3.1.0",
+    "jquery-hammerjs" : "1.0.1",
+    "seiyria-bootstrap-slider" : "1.9.5"
   }
 }
