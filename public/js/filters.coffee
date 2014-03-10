@@ -3,7 +3,7 @@ lerp = (v0, v1, t) ->
   v0 + (v1-v0) * t
 
 # Register a new blur plugin
-Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
+Caman.Plugin.register "myBlur", (radius, gradient_center_top, gradient_width) ->
   # only do something if the radius >= 1
   return if isNaN(radius) || radius < 1
 
@@ -16,7 +16,7 @@ Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
   height = @dimensions.height
 
 
-  gradient_center = gradient_center or (height / 2) + 30
+  gradient_center_top = gradient_center_top or (height / 2) + 30
   gradient_half_width = gradient_width / 2
 
   # Calculate the array size for the kernel.
@@ -70,16 +70,16 @@ Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
       new_value[2] /= divisor
 
       # Calculate the upper half gradient
-      if (y > gradient_center - gradient_half_width && y <= gradient_center)
-        t = ((y+gradient_half_width)-gradient_center) / gradient_half_width
+      if (y > gradient_center_top - gradient_half_width && y <= gradient_center_top)
+        t = ((y+gradient_half_width)-gradient_center_top) / gradient_half_width
 
         new_value[0] = lerp(new_value[0], pixels[i], t);
         new_value[1] = lerp(new_value[1], pixels[i + 1], t);
         new_value[2] = lerp(new_value[2], pixels[i + 2], t);
 
       # Calculate the lower half gradient
-      if (y >= gradient_center && y < gradient_center + gradient_half_width)
-        t = (y-gradient_center + 1) / gradient_half_width
+      if (y >= gradient_center_top && y < gradient_center_top + gradient_half_width)
+        t = (y-gradient_center_top + 1) / gradient_half_width
 
         new_value[0] = lerp(pixels[i], new_value[0], t);
         new_value[1] = lerp(pixels[i + 1], new_value[1], t);
@@ -94,5 +94,5 @@ Caman.Plugin.register "myBlur", (radius, gradient_center, gradient_width) ->
 
   @
 
-Caman.Filter.register "myBlur", (radius) ->
-  @processPlugin "myBlur", [radius]
+Caman.Filter.register "myBlur", (radius, gradient_center_top) ->
+  @processPlugin "myBlur", [radius, gradient_center_top]

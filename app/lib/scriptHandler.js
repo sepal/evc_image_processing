@@ -19,6 +19,7 @@ var default_js_files = [
   {'url' : "/lib/bootstrap/dist/js/bootstrap.min.js"},
   {'url' : "/lib/bootstrap-switch/build/js/bootstrap-switch.js"},
   {'url' : "/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"},
+  {'url' : "/lib/jquery-hammerjs/jquery.hammer-full.js"},
   {'url' : "/lib/angular/angular.js", 'location' : 'header'},
   {'url' : "/lib/angular-route/angular-route.js", 'location' : 'header'},
   {'url' : "/lib/angular-resource/angular-resource.js", 'location' : 'header'},

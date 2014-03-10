@@ -6,7 +6,7 @@
     return v0 + (v1 - v0) * t;
   };
 
-  Caman.Plugin.register("myBlur", function(radius, gradient_center, gradient_width) {
+  Caman.Plugin.register("myBlur", function(radius, gradient_center_top, gradient_width) {
     var blur_kernel, divisor, gradient_half_width, height, i, j, kernel_size, new_value, pixels, t, width, x, x_div, x_k, y, y_div, y_k, _i, _j, _k, _l, _m, _n;
     if (isNaN(radius) || radius < 1) {
       return;
@@ -16,7 +16,7 @@
     pixels = this.pixelData;
     width = this.dimensions.width;
     height = this.dimensions.height;
-    gradient_center = gradient_center || (height / 2) + 30;
+    gradient_center_top = gradient_center_top || (height / 2) + 30;
     gradient_half_width = gradient_width / 2;
     kernel_size = radius * 2 + 1;
     divisor = kernel_size * kernel_size;
@@ -53,14 +53,14 @@
         new_value[0] /= divisor;
         new_value[1] /= divisor;
         new_value[2] /= divisor;
-        if (y > gradient_center - gradient_half_width && y <= gradient_center) {
-          t = ((y + gradient_half_width) - gradient_center) / gradient_half_width;
+        if (y > gradient_center_top - gradient_half_width && y <= gradient_center_top) {
+          t = ((y + gradient_half_width) - gradient_center_top) / gradient_half_width;
           new_value[0] = lerp(new_value[0], pixels[i], t);
           new_value[1] = lerp(new_value[1], pixels[i + 1], t);
           new_value[2] = lerp(new_value[2], pixels[i + 2], t);
         }
-        if (y >= gradient_center && y < gradient_center + gradient_half_width) {
-          t = (y - gradient_center + 1) / gradient_half_width;
+        if (y >= gradient_center_top && y < gradient_center_top + gradient_half_width) {
+          t = (y - gradient_center_top + 1) / gradient_half_width;
           new_value[0] = lerp(pixels[i], new_value[0], t);
           new_value[1] = lerp(pixels[i + 1], new_value[1], t);
           new_value[2] = lerp(pixels[i + 2], new_value[2], t);
@@ -73,8 +73,8 @@
     return this;
   });
 
-  Caman.Filter.register("myBlur", function(radius) {
-    return this.processPlugin("myBlur", [radius]);
+  Caman.Filter.register("myBlur", function(radius, gradient_center_top) {
+    return this.processPlugin("myBlur", [radius, gradient_center_top]);
   });
 
 }).call(this);

@@ -13,3 +13,47 @@
     margin: 12px 20px;
   }
 }
+
+
+.tilt-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.tilt-center {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 2px solid @gray;
+  border-radius: 25px;
+  cursor: pointer;
+  .user-select(none);
+
+  .inner-background {
+    position: relative;
+    margin: 0;
+    width: 46px;
+    height: 46px;
+    border: 4px solid @gray-lighter;
+    border-radius: 23px;
+  }
+
+  .inner-border {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border: 2px solid @gray;
+    border-radius: 19px;
+  }
+
+  .inner-circle {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin: 12px;
+    border-radius: 5px;
+    background-color: @gray-lighter;
+  }
+}
