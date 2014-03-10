@@ -98,7 +98,6 @@
   $(".tilt-gradient-lower .tilt-gradient-size").on("moved", function(event, pageX, pageY) {
     var y;
     y = pageY - $(".tilt-gradient-lower").offset().top;
-    console.log(y);
     $(".tilt-gradient-lower").css({
       height: y
     });

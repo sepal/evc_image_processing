@@ -70,7 +70,6 @@ hammertime.on "dragstart", ".tilt-gradient-lower .tilt-gradient-size .handler", 
 
 $(".tilt-gradient-lower .tilt-gradient-size").on "moved", (event, pageX, pageY) ->
   y = pageY - $(".tilt-gradient-lower").offset().top;
-  console.log(y);
   $(".tilt-gradient-lower").css({height: y})
   return
 
