@@ -18,7 +18,7 @@ $('.tilt-shift-button').click ->
   gradient_center_top = ($(".tilt-center").position().top+25) / canvas_height * img_height
 
   Caman img, ->
-    @myBlur(radius, gradient_center_top)
+    @myTiltShift(radius, gradient_center_top)
     @render()
     return
   return

@@ -20,7 +20,7 @@
     radius = $('.blur-radius').slider('getValue');
     gradient_center_top = ($(".tilt-center").position().top + 25) / canvas_height * img_height;
     Caman(img, function() {
-      this.myBlur(radius, gradient_center_top);
+      this.myTiltShift(radius, gradient_center_top);
       this.render();
     });
   });

@@ -2,13 +2,17 @@
 lerp = (v0, v1, t) ->
   v0 + (v1-v0) * t
 
+Gradient = (from, to) ->
+  @from = from
+  @to = to
+  @width = to - from;
+
+  @
+
 # Register a new blur plugin
-Caman.Plugin.register "myBlur", (radius, gradient_center_top, gradient_width) ->
+Caman.Plugin.register "myTiltShift", (radius, focus_center, gradient_height, gradient_distance) ->
   # only do something if the radius >= 1
   return if isNaN(radius) || radius < 1
-
-  radius = radius or 1
-  gradient_width = gradient_width or 100;
 
   # Get the pixels and the dimensions of the image.
   pixels = @pixelData
@@ -16,8 +20,13 @@ Caman.Plugin.register "myBlur", (radius, gradient_center_top, gradient_width) ->
   height = @dimensions.height
 
 
-  gradient_center_top = gradient_center_top or (height / 2) + 30
-  gradient_half_width = gradient_width / 2
+  focus_center = focus_center or (height / 2) + 30
+  gradient_height = gradient_height | 50
+  gradient_distance = gradient_distance or 20
+
+  # Calculate gradient maps
+  upper_gradient = new Gradient(focus_center - gradient_height - gradient_distance, focus_center - gradient_distance)
+  lower_gradient = new Gradient(focus_center+ gradient_distance, focus_center + gradient_distance + gradient_height )
 
   # Calculate the array size for the kernel.
   kernel_size = radius * 2 + 1
@@ -35,7 +44,11 @@ Caman.Plugin.register "myBlur", (radius, gradient_center_top, gradient_width) ->
   # Manipulate all pixels.
   for y in [0...height]
     for x in [0...width]
-      # Calculate current position in the one dimensional pixel array.
+
+      # Cancel pixel manipulation for the region, which should stay unblured.
+      break if (y >= upper_gradient.to && y <= lower_gradient.from)
+
+    # Calculate current position in the one dimensional pixel array.
       i = y * width * 4 + x * 4
 
       # Create a variable for the resulting values.
@@ -69,17 +82,18 @@ Caman.Plugin.register "myBlur", (radius, gradient_center_top, gradient_width) ->
       new_value[1] /= divisor
       new_value[2] /= divisor
 
+
       # Calculate the upper half gradient
-      if (y > gradient_center_top - gradient_half_width && y <= gradient_center_top)
-        t = ((y+gradient_half_width)-gradient_center_top) / gradient_half_width
+      if (y > upper_gradient.from && y <= upper_gradient.to)
+        t = (y-upper_gradient.from) / upper_gradient.width
 
         new_value[0] = lerp(new_value[0], pixels[i], t);
         new_value[1] = lerp(new_value[1], pixels[i + 1], t);
         new_value[2] = lerp(new_value[2], pixels[i + 2], t);
 
       # Calculate the lower half gradient
-      if (y >= gradient_center_top && y < gradient_center_top + gradient_half_width)
-        t = (y-gradient_center_top + 1) / gradient_half_width
+      if (y > lower_gradient.from && y <= lower_gradient.to)
+        t = (y-lower_gradient.from) / lower_gradient.width
 
         new_value[0] = lerp(pixels[i], new_value[0], t);
         new_value[1] = lerp(pixels[i + 1], new_value[1], t);
@@ -94,5 +108,5 @@ Caman.Plugin.register "myBlur", (radius, gradient_center_top, gradient_width) ->
 
   @
 
-Caman.Filter.register "myBlur", (radius, gradient_center_top) ->
-  @processPlugin "myBlur", [radius, gradient_center_top]
+Caman.Filter.register "myTiltShift", (radius, focus_center, gradient_height, gradient_distance) ->
+  @processPlugin "myTiltShift", [radius, focus_center, gradient_height, gradient_distance]
