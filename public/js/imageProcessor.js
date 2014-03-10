@@ -36,6 +36,14 @@
     });
   });
 
+  $('.save-button').click(function() {
+    var img;
+    img = $('.image').get(0);
+    Caman(img, function() {
+      this.save('png');
+    });
+  });
+
   initial_focus_top = canvas_height / 2 - 25;
 
   $(".tilt-center").css({

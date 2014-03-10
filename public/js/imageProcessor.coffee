@@ -32,6 +32,13 @@ $('.revert-button').click ->
     return
   return
 
+$('.save-button').click ->
+  img = $('.image').get(0);
+  Caman img, ->
+    this.save('png');
+    return
+  return
+
 initial_focus_top = canvas_height/2 - 25
 
 $(".tilt-center").css({left: canvas_width/2 - 25, top: initial_focus_top})
