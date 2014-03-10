@@ -77,6 +77,33 @@
     }
   });
 
+  hammertime.on("dragstart", ".tilt-gradient-upper .tilt-gradient-size .handler", function(event) {
+    current_element = $(".tilt-gradient-upper .tilt-gradient-size");
+  });
+
+  $(".tilt-gradient-upper .tilt-gradient-size").on("moved", function(event, pageX, pageY) {
+    var y1, y2;
+    y1 = pageY - $(".image").offset().top;
+    y2 = $(".tilt-gradient-upper").position().top + $(".tilt-gradient-upper").height();
+    $(".tilt-gradient-upper").css({
+      top: y1,
+      height: y2 - y1
+    });
+  });
+
+  hammertime.on("dragstart", ".tilt-gradient-lower .tilt-gradient-size .handler", function(event) {
+    current_element = $(".tilt-gradient-lower .tilt-gradient-size");
+  });
+
+  $(".tilt-gradient-lower .tilt-gradient-size").on("moved", function(event, pageX, pageY) {
+    var y;
+    y = pageY - $(".tilt-gradient-lower").offset().top;
+    console.log(y);
+    $(".tilt-gradient-lower").css({
+      height: y
+    });
+  });
+
   hammertime.on("drag", ".tilt-overlay", function(event) {
     if (current_element === void 0) {
       return;

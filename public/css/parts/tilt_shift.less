@@ -35,26 +35,44 @@
 }
 
 .tilt-gradient-position {
-  border: 2px solid @gray-lighter;
 
   .tilt-gradient-upper & {
     bottom: 0;
+    border-bottom: 2px solid @gray-lighter;
   }
 
   .tilt-gradient-lower & {
     top: 0;
+    border-top: 2px solid @gray-lighter;
   }
 }
 
 .tilt-gradient-size {
-  border: 2px dashed @gray-lighter;
+  .handler {
+    position: absolute;
+    background: @gray-lighter;
+    height: 20px;
+    width: 100%;
+    opacity: 0.5;
+  }
 
   .tilt-gradient-upper & {
     top: 0;
+    border-top: 2px dashed @gray-lighter;
+
+    .handler {
+      top: -10px;
+    }
   }
 
   .tilt-gradient-lower & {
     bottom: 0;
+    border-bottom: 2px dashed @gray-lighter;
+
+    .handler {
+      bottom: -12px;
+      opacity: 0.5;
+    }
   }
 }
 

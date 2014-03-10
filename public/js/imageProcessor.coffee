@@ -54,6 +54,26 @@ $(".tilt-center").on "moved", (event, pageX, pageY) ->
     $(".tilt-gradient-lower").css({top: y_pos + 50})
   return
 
+hammertime.on "dragstart", ".tilt-gradient-upper .tilt-gradient-size .handler", (event) ->
+  current_element = $(".tilt-gradient-upper .tilt-gradient-size")
+  return
+
+$(".tilt-gradient-upper .tilt-gradient-size").on "moved", (event, pageX, pageY) ->
+  y1 = pageY - $(".image").offset().top;
+  y2 = $(".tilt-gradient-upper").position().top + $(".tilt-gradient-upper").height();
+  $(".tilt-gradient-upper").css({top: y1, height: y2 - y1})
+  return
+
+hammertime.on "dragstart", ".tilt-gradient-lower .tilt-gradient-size .handler", (event) ->
+  current_element = $(".tilt-gradient-lower .tilt-gradient-size")
+  return
+
+$(".tilt-gradient-lower .tilt-gradient-size").on "moved", (event, pageX, pageY) ->
+  y = pageY - $(".tilt-gradient-lower").offset().top;
+  console.log(y);
+  $(".tilt-gradient-lower").css({height: y})
+  return
+
 
 hammertime.on "drag", ".tilt-overlay" , (event) ->
   return if current_element == undefined
