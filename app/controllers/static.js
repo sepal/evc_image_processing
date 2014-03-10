@@ -45,7 +45,7 @@ exports.edit = function (req, res) {
   var params = {
     title: 'ImageProcessing',
     menu: mainNavigation.getItems('home'),
-    js_files: scriptHandler.getFiles('/'),
+    js_files: scriptHandler.getFiles('/edit'),
     image: img
   };
   res.render('edit', params);

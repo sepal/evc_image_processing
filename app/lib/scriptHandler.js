@@ -19,6 +19,7 @@ var default_js_files = [
   {'url' : "/lib/bootstrap/dist/js/bootstrap.min.js"},
   {'url' : "/lib/bootstrap-switch/build/js/bootstrap-switch.js"},
   {'url' : "/lib/seiyria-bootstrap-slider/dist/bootstrap-slider.min.js"},
+  {'url' : "/lib/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"},
   {'url' : "/lib/jquery-hammerjs/jquery.hammer-full.js"},
   {'url' : "/lib/angular/angular.js", 'location' : 'header'},
   {'url' : "/lib/angular-route/angular-route.js", 'location' : 'header'},
@@ -29,7 +30,6 @@ var default_js_files = [
   {'url' : "/js/controllers.js", 'location' : 'header'},
   {'url' : "/js/services.js", 'location' : 'header'},
   {'url' : "/js/filters.js", 'location' : 'header'},
-  {'url' : "/js/imageProcessor.js", 'location' : 'footer'}
 ];
 
 /**
@@ -39,6 +39,9 @@ var default_js_files = [
  * @type {{path: Array}}
  */
 var site_files = {
+  '/edit' : [
+    {'url' : "/js/imageProcessor.js", 'location' : 'footer'}
+  ]
 };
 
 function getFiles(route) {
